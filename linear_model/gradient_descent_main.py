@@ -12,7 +12,7 @@ def load_data(file_path):
     return df
 
 def main():
-    df = load_data("../../data/baby-weights-dataset.csv")
+    df = load_data("C:\\Users\\51606\\Desktop\\dstoolkit\\data\\baby-weights-dataset.csv")
     print("Data has been loaded!")
     reg = gd.GradientDescent(method="minibatch")
     scaler = StandardScaler()
@@ -25,8 +25,6 @@ def main():
     print(reg.mse)
     y_pred = reg.predict(X_test)
     print(mse(y_test,y_pred))
-
-
     print(reg.algorithm)
 
 if __name__ == "__main__":
