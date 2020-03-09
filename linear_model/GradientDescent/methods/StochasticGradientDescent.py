@@ -1,0 +1,2 @@
+def StochasticGradientDescent():
+    return None

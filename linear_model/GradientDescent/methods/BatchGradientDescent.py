@@ -1,0 +1,2 @@
+def BatchGradientDescent():
+    return None

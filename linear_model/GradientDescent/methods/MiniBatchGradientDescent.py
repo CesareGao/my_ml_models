@@ -1,0 +1,2 @@
+def MiniBatchGradientDescent():
+    return None
