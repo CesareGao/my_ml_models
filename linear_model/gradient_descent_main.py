@@ -12,20 +12,25 @@ def load_data(file_path):
     return df
 
 def main():
+    ## linux machine
+    # df = load_data("../../data/baby-weights-dataset.csv")
+    ## windows machine
     df = load_data("C:\\Users\\51606\\Desktop\\dstoolkit\\data\\baby-weights-dataset.csv")
     print("Data has been loaded!")
-    reg = gd.GradientDescent(method="minibatch")
+    reg = gd.GradientDescent(method="batch", learning_rate=0.15, batch_size=256)
     scaler = StandardScaler()
     X = scaler.fit_transform(df.drop("BWEIGHT", axis=1))
     X = np.insert(X,0,1,axis=1)
     y = df["BWEIGHT"]
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
-    reg.fit(X_train, y_train)
-    print(reg.weights)
-    print(reg.mse)
-    y_pred = reg.predict(X_test)
-    print(mse(y_test,y_pred))
     print(reg.algorithm)
+    print("***Training the model...***")
+    reg.fit(X_train, y_train)
+    print("***Training done!***")
+    print(f"The number of iterations to stop: {reg.num_iter}")
+    print(f"The corresponding training MSE: {reg.mse}")
+    y_pred = reg.predict(X_test)
+    print(f"The testing MSE: {mse(y_test,y_pred)}")
 
 if __name__ == "__main__":
     main()

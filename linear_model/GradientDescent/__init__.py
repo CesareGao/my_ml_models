@@ -8,13 +8,18 @@ class GradientDescent:
             from .methods.BatchGradientDescent import BatchGradientDescent as algorithm
         elif method == "sgd":
             from .methods.StochasticGradientDescent import StochasticGradientDescent as algorithm
-        elif method == "minibatch":
             if batch_size:
                 self.batch_size = batch_size
             else:
                 self.batch_size = 128
                 print("WARNING! No batch size given. Use default size 128")
+        elif method == "minibatch":
             from .methods.MiniBatchGradientDescent import MiniBatchGradientDescent as algorithm
+            if batch_size:
+                self.batch_size = batch_size
+            else:
+                self.batch_size = 128
+                print("WARNING! No batch size given. Use default size 128")
         else:
             raise ValueError(f"No such a method exists: {method}")
         self.algorithm = algorithm
@@ -32,8 +37,9 @@ class GradientDescent:
         else:
             args = {"learning_rate": self.learning_rate,
                     "max_iter": self.max_iter,
-                    "cost_limit": self.cost_limit}
-        self.weights, self.mse = self.algorithm(X, y.to_numpy().reshape((-1,1)), **args)
+                    "cost_limit": self.cost_limit,
+                    "batch_size": self.batch_size}
+        self.weights, self.mse, self.num_iter = self.algorithm(X, y.to_numpy().reshape((-1,1)), **args)
 
     def predict(self, X):
         import numpy as np

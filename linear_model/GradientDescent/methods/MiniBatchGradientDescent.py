@@ -35,10 +35,9 @@ def MiniBatchGradientDescent(X, y, learning_rate, batch_size, max_iter, cost_lim
     cost = 1
     i = 0
     while i < max_iter and cost > cost_limit:
-        print(f"round {i}")
         batches = create_batches(X, y, batch_size)
         for batch in batches:
             w = w - learning_rate * (1/batch[0].shape[0]) * gradient(batch[0], batch[1], w)
             cost = cost_func(batch[0], batch[1], w)
         i += 1
-    return w, cost
+    return w, cost, i
